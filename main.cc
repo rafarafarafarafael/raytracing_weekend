@@ -1,29 +1,29 @@
 #include <iostream>
 #include <cstdint>
 
+#include "vec3.h"
+#include "color.h"
+
 int main()
 {
-    // Image
-    const int imageWidth = 256;
-    const int imageHeight = 256;
-    double r, g, b;
-    int i, j, ir, ig, ib;
+	// Image
+	const int imageWidth = 256;
+	const int imageHeight = 256;
+	color pixel_color;
+	int i, j;
 
-    // Render
+	// Render
+	std::cout << "P3\n" << imageWidth << ' ' << imageHeight << "\n255\n";
 
-    std::cout << "P3\n" << imageWidth << ' ' << imageHeight << "\nd55\n";
+	for (j = 0; j < imageHeight; j++){
+		std::clog << "\rScanlines remaining: " << (imageHeight - j) << ' ' << std::flush;
+		for(i = 0; i < imageWidth; i ++){
+			pixel_color = color(double(i)/(imageWidth - 1), double(j)/(imageHeight - 1), 0);
+			write_color(std::cout, pixel_color);
+		}
+	}
 
-    for (j = 0; j < imageHeight; j++){
-        for(i = 0; i < imageWidth; i ++){
-            r = double(i) / (imageWidth - 1);
-            g = double(j) / (imageHeight - 1);
-            b = 0.0;
+	std::clog << "\rDone.                                   \n";
 
-            ir = int(255.999 * r);
-            ig = int(255.999 * g);
-            ib = int(255.999 * b);
-
-            std::cout << ir << ' ' << ig << ' ' << ib << std::endl;
-        }
-    }
+	return 0;
 }
