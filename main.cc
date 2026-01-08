@@ -14,15 +14,15 @@ color ray_color(const ray& r){
 int main()
 {
 	// Variables
+	int imageHeight, imageWidth = 400;
+	int i, j;
 	double aspectRatio = 16.0 / 9.0;
 	double focalLength = 1.0;
-	double viewportHeight = 2.0, viewportWidth;
-	point3 cameraCenter = point3(0, 0, 0); 
+	double viewportWidth, viewportHeight = 2.0;
 	vec3 viewportU, viewportV, pixelDeltaU, pixelDeltaV;
 	vec3 viewportUpperLeft, pixel00Loc;
-	int imageWidth = 400, imageHeight;
+	point3 cameraCenter = point3(0, 0, 0); 
 	color pixelColor;
-	int i, j;
 
 	// Calculate the image height and ensure that it is at least 1
 	imageHeight = int(imageWidth/aspectRatio);
@@ -33,7 +33,8 @@ int main()
 
 	// Calculate the vectors across the horizontal and down the vertical viewport edges
 	viewportU = vec3(viewportWidth, 0, 0);
-	viewportV = vec3(viewportHeight, 0, 0);
+	viewportV = vec3(0, viewportHeight, 0); // book says negative viewportHeight, 
+											// but I was getting the wrong gradient.
 
 	// Calculate the horizontal and vertical delta vectors from pixel to pixel
 	pixelDeltaU = viewportU / imageWidth;
